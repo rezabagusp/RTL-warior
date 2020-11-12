@@ -1,0 +1,6 @@
+node_modules/
+.next/
+server.js
+tailwind.config.js
+stylelint.config.js
+postcss.config.js
