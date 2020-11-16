@@ -1,0 +1,19 @@
+.selectOption input {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 14px;
+}
+
+.selectOption-list {
+  max-width: 100%;
+}
+
+.selectOption-listItem:hover,
+.selectOption-listItem.is-active {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.selectOption-listItem.is-selected {
+  background-color: aqua;
+}
