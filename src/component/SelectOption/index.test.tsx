@@ -4,7 +4,7 @@ import {
 
 /*
  * Test cases will consist of:
- * 1. Should render into the DOM ✅
+ * 1. Should render into the DOM
  * 2. Click input bar should render dropdown list
  * 3. On dropwdown open should listen arrow top & bottom
  * 4. On select should hide dropdown
