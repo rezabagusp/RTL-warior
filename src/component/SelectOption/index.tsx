@@ -1,4 +1,9 @@
-import React, { useState, useRef, ReactNode } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ReactNode,
+} from 'react';
 import cls from 'classnames';
 import './index.scss';
 
@@ -26,14 +31,23 @@ const DATA: Option[] = [
   },
 ];
 
-// TODO: handle click outside -> hide list
-// handle focus remove on select item
 const SelectOption = () => {
+  const wrapperRef = useRef(null);
   const inputRef = useRef(null);
+
   const [showlist, setShowList] = useState<boolean>(false);
   const [cursor, setCursor] = useState<number>(0);
   const [items] = useState<Option[]>(DATA);
   const [selected, setSelected] = useState<Option | null>(null);
+
+  const handleClickOutside = (e: any) => {
+    const isClickOutside = wrapperRef
+      && !(wrapperRef.current as unknown as HTMLElement).contains(e.target);
+
+    if (isClickOutside) {
+      setShowList(false);
+    }
+  };
 
   const handleSelectItem = (selectedItem: Option): void => {
     setShowList(false);
@@ -76,15 +90,22 @@ const SelectOption = () => {
     });
   };
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="selectOption">
+    <div
+      ref={wrapperRef}
+      className="selectOption"
+    >
       <input
         ref={inputRef}
         onClick={() => {
-          if (showlist) {
-            setShowList(false);
-            (inputRef?.current as unknown as HTMLElement).blur();
-          } else setShowList(true);
+          if (!showlist) setShowList(true);
         }}
         onKeyDown={handleKeyDown}
         value={selected?.name}
