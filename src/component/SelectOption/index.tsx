@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, ReactNode } from 'react';
 import cls from 'classnames';
 import './index.scss';
 
@@ -35,7 +35,7 @@ const SelectOption = () => {
   const [items] = useState<Option[]>(DATA);
   const [selected, setSelected] = useState<Option | null>(null);
 
-  const handleSelectItem = (selectedItem: Option) => {
+  const handleSelectItem = (selectedItem: Option): void => {
     setShowList(false);
     setSelected(selectedItem);
   };
@@ -51,7 +51,7 @@ const SelectOption = () => {
     }
   };
 
-  const renderList = () => {
+  const renderList = (): ReactNode => {
     if (!showlist) {
       return null;
     }
