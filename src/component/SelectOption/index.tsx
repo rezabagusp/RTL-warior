@@ -81,8 +81,10 @@ const SelectOption = () => {
       <input
         ref={inputRef}
         onClick={() => {
-          if (showlist) setShowList(false);
-          else setShowList(true);
+          if (showlist) {
+            setShowList(false);
+            (inputRef?.current as unknown as HTMLElement).blur();
+          } else setShowList(true);
         }}
         onKeyDown={handleKeyDown}
         value={selected?.name}
