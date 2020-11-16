@@ -29,6 +29,7 @@ const Button: FunctionComponent<Props> = (
     btnPrimary: 'button--primary',
     btnSecondary: 'button--secondary',
     btnOutline: 'button--outline',
+    btnDisabled: 'button--disable',
   };
 
   const propsClass: { [key: string]: boolean | undefined } = {
@@ -65,6 +66,7 @@ const Button: FunctionComponent<Props> = (
 };
 
 Button.defaultProps = {
+  className: '',
   type: 'primary',
   disabled: false,
 };
