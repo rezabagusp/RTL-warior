@@ -3,42 +3,31 @@ import React, {
   useRef,
   useEffect,
   ReactNode,
+  FunctionComponent,
 } from 'react';
 import cls from 'classnames';
+import { Option } from '../../types';
 import './index.scss';
 
-type Option = {
-  id: number,
-  name: string,
+type Props = {
+  className?: string,
+  data: Option[],
+  selected: Option | null,
+  onSelect: (newSelected: Option) => void
 }
 
-const DATA: Option[] = [
-  {
-    id: 1,
-    name: 'BWM',
-  },
-  {
-    id: 2,
-    name: 'Ferrari',
-  },
-  {
-    id: 3,
-    name: 'Lamborghini',
-  },
-  {
-    id: 4,
-    name: 'Ford',
-  },
-];
-
-const SelectOption = () => {
+const SelectOption: FunctionComponent<Props> = ({
+  className,
+  data,
+  selected,
+  onSelect,
+}) => {
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
   const [showlist, setShowList] = useState<boolean>(false);
   const [cursor, setCursor] = useState<number>(0);
-  const [items] = useState<Option[]>(DATA);
-  const [selected, setSelected] = useState<Option | null>(null);
+  const [items] = useState<Option[]>(data);
 
   const handleClickOutside = (e: any) => {
     const isClickOutside = wrapperRef
@@ -51,7 +40,7 @@ const SelectOption = () => {
 
   const handleSelectItem = (selectedItem: Option): void => {
     setShowList(false);
-    setSelected(selectedItem);
+    onSelect(selectedItem);
   };
 
   const handleKeyDown = (e: any): void => {
@@ -100,16 +89,21 @@ const SelectOption = () => {
   return (
     <div
       ref={wrapperRef}
-      className="selectOption"
+      className={cls('selectOption', className)}
+      onClick={() => {
+        if (!showlist) {
+          setShowList(true);
+          (inputRef?.current as unknown as HTMLElement).focus();
+        }
+      }}
     >
-      <input
-        ref={inputRef}
-        onClick={() => {
-          if (!showlist) setShowList(true);
-        }}
-        onKeyDown={handleKeyDown}
-        value={selected?.name}
-      />
+      <div className="selectOption-displayWrapper">
+        <input
+          ref={inputRef}
+          onKeyDown={handleKeyDown}
+          value={selected?.name}
+        />
+      </div>
       <div className="selectOption-list">
         {renderList()}
       </div>
