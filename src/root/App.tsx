@@ -45,6 +45,7 @@ const App: FunctionComponent<any> = () => {
       <SelectOption
         selected={selected}
         onSelect={(newSelected: Option) => setSelected(newSelected)}
+        placeholder="Select your favorite car"
         data={DATA}
       />
     </div>

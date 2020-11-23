@@ -9,10 +9,11 @@ import cls from 'classnames';
 import { Option } from '../../types';
 import './index.scss';
 
-type Props = {
+export type Props = {
   className?: string,
   data: Option[],
   selected: Option | null,
+  placeholder?: string,
   onSelect: (newSelected: Option) => void
 }
 
@@ -20,13 +21,14 @@ const SelectOption: FunctionComponent<Props> = ({
   className,
   data,
   selected,
+  placeholder,
   onSelect,
 }) => {
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
   const [showlist, setShowList] = useState<boolean>(false);
-  const [cursor, setCursor] = useState<number>(0);
+  const [cursor, setCursor] = useState<number>(-1);
   const [items] = useState<Option[]>(data);
 
   const handleClickOutside = (e: any) => {
@@ -63,7 +65,7 @@ const SelectOption: FunctionComponent<Props> = ({
       const key = `car-${item.id}`;
       const propsClas = cls(
         'selectOption-listItem',
-        { 'is-active': cursor === index },
+        { 'is-highlighted': cursor === index },
         { 'is-selected': selected && selected.id === item.id },
       );
 
@@ -89,6 +91,7 @@ const SelectOption: FunctionComponent<Props> = ({
   return (
     <div
       ref={wrapperRef}
+      data-testid="selectOption"
       className={cls('selectOption', className)}
       onClick={() => {
         if (!showlist) {
@@ -101,10 +104,14 @@ const SelectOption: FunctionComponent<Props> = ({
         <input
           ref={inputRef}
           onKeyDown={handleKeyDown}
-          value={selected?.name}
+          value={selected?.name ?? placeholder}
+          readOnly
         />
       </div>
-      <div className="selectOption-list">
+      <div
+        className="selectOption-list"
+        data-testid="selectOption-list"
+      >
         {renderList()}
       </div>
     </div>
