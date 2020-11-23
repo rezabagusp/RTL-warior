@@ -46,7 +46,7 @@ const props: SelectOptionProps = {
 
 afterEach(cleanup);
 
-describe.only('Select Option Component Test', () => {
+describe('Select Option Component Test', () => {
   const utils = (selectOptionProps: SelectOptionProps) => {
     const renderResult: RenderResult = render(
       <SelectOption {...selectOptionProps} />,
@@ -90,7 +90,7 @@ describe.only('Select Option Component Test', () => {
     expect(getSelectOptionListEl().querySelectorAll('.selectOption-listItem').length).toEqual(4);
   });
 
-  test.only('3. On dropwdown open, click item should call the onSelect prop and remove the dropdown', async () => {
+  test('3. On dropwdown open, click item should call the onSelect prop and remove the dropdown', async () => {
     const {
       getSelectOptonEl,
       getSelectOptionListEl,
