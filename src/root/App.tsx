@@ -30,24 +30,34 @@ const App: FunctionComponent<any> = () => {
   const [selected, setSelected] = useState<Option | null>(null);
 
   const handleClickBtn = () => {
-    const text = 'hallo warior';
+    const text = 'Form Submitted';
     alert(text); // eslint-disable-line
   };
 
   return (
     <div className="App">
-      <h2>Button Component</h2>
-      <Button onClick={handleClickBtn}>
-        This is Button
-      </Button>
+      <h2 data-testid="formTitle">Form Submission</h2>
+      <form data-testid="form">
+        <label>
+          Choose a Car
+        </label>
+        <br />
+        <SelectOption
+          className="carOptionInput"
+          selected={selected}
+          onSelect={(newSelected: Option) => setSelected(newSelected)}
+          placeholder="Select your favorite car"
+          data={DATA}
+        />
+        <br />
+        <Button
+          onClick={handleClickBtn}
+          disabled={!selected}
+        >
+          Submit
+        </Button>
+      </form>
 
-      <h2>Select Option</h2>
-      <SelectOption
-        selected={selected}
-        onSelect={(newSelected: Option) => setSelected(newSelected)}
-        placeholder="Select your favorite car"
-        data={DATA}
-      />
     </div>
   );
 };

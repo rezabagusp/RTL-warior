@@ -14,8 +14,18 @@
   margin: 0;
 }
 
+.selectOption input.is-placeholder {
+  color: #5d687b;
+}
+
 .selectOption-list {
-  max-width: 100%;
+  position: absolute;
+  background: white;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: scroll;
+  z-index: 1;
+  padding-bottom: 64px;
 }
 
 .selectOption-listItem {

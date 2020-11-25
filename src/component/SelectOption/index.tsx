@@ -56,30 +56,24 @@ const SelectOption: FunctionComponent<Props> = ({
     }
   };
 
-  const renderList = (): ReactNode => {
-    if (!showlist) {
-      return null;
-    }
+  const renderList = (): ReactNode => items.map((item, index) => {
+    const key = `car-${item.id}`;
+    const propsClas = cls(
+      'selectOption-listItem',
+      { 'is-highlighted': cursor === index },
+      { 'is-selected': selected && selected.id === item.id },
+    );
 
-    return items.map((item, index) => {
-      const key = `car-${item.id}`;
-      const propsClas = cls(
-        'selectOption-listItem',
-        { 'is-highlighted': cursor === index },
-        { 'is-selected': selected && selected.id === item.id },
-      );
-
-      return (
-        <div
-          key={key}
-          className={propsClas}
-          onClick={() => handleSelectItem(item)}
-        >
-          { item.name }
-        </div>
-      );
-    });
-  };
+    return (
+      <div
+        key={key}
+        className={propsClas}
+        onClick={() => handleSelectItem(item)}
+      >
+        { item.name }
+      </div>
+    );
+  });
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -102,18 +96,23 @@ const SelectOption: FunctionComponent<Props> = ({
     >
       <div className="selectOption-displayWrapper">
         <input
+          className={cls({ 'is-placeholder': placeholder && !selected })}
           ref={inputRef}
           onKeyDown={handleKeyDown}
           value={selected?.name ?? placeholder}
           readOnly
         />
       </div>
-      <div
-        className="selectOption-list"
-        data-testid="selectOption-list"
-      >
-        {renderList()}
-      </div>
+      {
+        showlist && (
+          <div
+            className="selectOption-list"
+            data-testid="selectOption-list"
+          >
+            {renderList()}
+          </div>
+        )
+      }
     </div>
   );
 };
