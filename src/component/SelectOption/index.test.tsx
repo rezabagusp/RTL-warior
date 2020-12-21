@@ -44,24 +44,24 @@ const props: SelectOptionProps = {
   onSelect: onSelectMock,
 };
 
+const utils = (selectOptionProps: SelectOptionProps) => {
+  const renderResult: RenderResult = render(
+    <SelectOption {...selectOptionProps} />,
+  );
+
+  const getSelectOptonEl = (): HTMLElement => renderResult.getByTestId('selectOption');
+  const getSelectOptionListEl = () => renderResult.getByTestId('selectOption-list');
+
+  return {
+    ...renderResult,
+    getSelectOptonEl,
+    getSelectOptionListEl,
+  };
+};
+
 afterEach(cleanup);
 
 describe('Select Option Component Test', () => {
-  const utils = (selectOptionProps: SelectOptionProps) => {
-    const renderResult: RenderResult = render(
-      <SelectOption {...selectOptionProps} />,
-    );
-
-    const getSelectOptonEl = (): HTMLElement => renderResult.getByTestId('selectOption');
-    const getSelectOptionListEl = () => renderResult.getByTestId('selectOption-list');
-
-    return {
-      ...renderResult,
-      getSelectOptonEl,
-      getSelectOptionListEl,
-    };
-  };
-
   test('1. Should render into DOM', () => {
     const {
       getSelectOptonEl,
