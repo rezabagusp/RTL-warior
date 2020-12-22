@@ -36,8 +36,12 @@ const App: FunctionComponent<any> = () => {
 
   return (
     <div className="App">
-      <h2 data-testid="formTitle">Form Submission</h2>
-      <form data-testid="form">
+      <h1 className="App-title">
+        React Testing Library
+      </h1>
+      <p className="App-author">Author: Reza Bagus Permana</p>
+      <h2 data-testid="formTitle">Example Form Submission</h2>
+      <form className="App-form" data-testid="form">
         <label>
           Choose a Car
         </label>
